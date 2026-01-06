@@ -1,11 +1,11 @@
-# Build and Release macOS App
-# Automatically creates macOS .app bundle and publishes to GitHub Releases
+# Build and Release macOS Apps
+# Automatically creates macOS .app bundles and publishes to GitHub Releases
 #
 # Trigger: Push a tag like 'v1.7.0' to create a release
 #   git tag v1.7.0
 #   git push origin v1.7.0
 
-name: Build macOS App
+name: Build macOS Apps
 
 on:
   push:
@@ -20,12 +20,9 @@ on:
         required: true
         type: string
 
-env:
-  APP_NAME: "Claude Code Now"
-
 jobs:
   build:
-    name: Build macOS App Bundle
+    name: Build macOS App Bundles
     runs-on: macos-latest
     
     steps:
@@ -44,37 +41,71 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           echo "📦 Building version: $VERSION"
       
-      - name: Build App Bundle
+      - name: Build Claude Code Now
         run: |
           VERSION="${{ steps.version.outputs.VERSION }}"
-          APP_DIR="${{ env.APP_NAME }}.app"
+          APP_NAME="Claude Code Now"
+          APP_DIR="${APP_NAME}.app"
           ZIP_NAME="Claude.Code.Now.v${VERSION}.macOS.zip"
           
           echo "🔨 Building $APP_DIR..."
           
           # Create fresh app bundle structure
-          rm -rf "build"
-          mkdir -p "build/$APP_DIR/Contents/MacOS"
-          mkdir -p "build/$APP_DIR/Contents/Resources"
+          rm -rf "build/claude"
+          mkdir -p "build/claude/$APP_DIR/Contents/MacOS"
+          mkdir -p "build/claude/$APP_DIR/Contents/Resources"
           
           # Copy Info.plist and update version
-          cp "$APP_DIR/Contents/Info.plist" "build/$APP_DIR/Contents/"
-          sed -i '' "s/<string>1\.[0-9]\.[0-9]<\/string>/<string>${VERSION}<\/string>/g" "build/$APP_DIR/Contents/Info.plist"
+          cp "$APP_DIR/Contents/Info.plist" "build/claude/$APP_DIR/Contents/"
+          sed -i '' "s/<string>[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*[^<]*<\/string>/<string>${VERSION}<\/string>/g" "build/claude/$APP_DIR/Contents/Info.plist"
           
           # Copy executable script
-          cp "$APP_DIR/Contents/MacOS/ClaudeCodeLauncher" "build/$APP_DIR/Contents/MacOS/"
-          chmod +x "build/$APP_DIR/Contents/MacOS/ClaudeCodeLauncher"
+          cp "$APP_DIR/Contents/MacOS/ClaudeCodeLauncher" "build/claude/$APP_DIR/Contents/MacOS/"
+          chmod +x "build/claude/$APP_DIR/Contents/MacOS/ClaudeCodeLauncher"
           
           # Copy icon resources
-          cp "$APP_DIR/Contents/Resources/"*.icns "build/$APP_DIR/Contents/Resources/"
+          cp "$APP_DIR/Contents/Resources/"*.icns "build/claude/$APP_DIR/Contents/Resources/"
           
-          echo "✅ App bundle created successfully"
+          echo "✅ Claude Code Now bundle created"
           
           # Create zip archive
-          cd build
+          cd build/claude
           zip -r "$ZIP_NAME" "$APP_DIR"
+          shasum -a 256 "$ZIP_NAME" > "${ZIP_NAME}.sha256"
           
-          # Generate SHA256 checksum
+          echo "📦 Created: $ZIP_NAME"
+          cat "${ZIP_NAME}.sha256"
+      
+      - name: Build Codex Now
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          APP_NAME="Codex Now"
+          APP_DIR="${APP_NAME}.app"
+          ZIP_NAME="Codex.Now.v${VERSION}.macOS.zip"
+          
+          echo "🔨 Building $APP_DIR..."
+          
+          # Create fresh app bundle structure
+          rm -rf "build/codex"
+          mkdir -p "build/codex/$APP_DIR/Contents/MacOS"
+          mkdir -p "build/codex/$APP_DIR/Contents/Resources"
+          
+          # Copy Info.plist and update version
+          cp "$APP_DIR/Contents/Info.plist" "build/codex/$APP_DIR/Contents/"
+          sed -i '' "s/<string>[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*[^<]*<\/string>/<string>${VERSION}<\/string>/g" "build/codex/$APP_DIR/Contents/Info.plist"
+          
+          # Copy executable script
+          cp "$APP_DIR/Contents/MacOS/CodexLauncher" "build/codex/$APP_DIR/Contents/MacOS/"
+          chmod +x "build/codex/$APP_DIR/Contents/MacOS/CodexLauncher"
+          
+          # Copy icon resources
+          cp "$APP_DIR/Contents/Resources/"*.icns "build/codex/$APP_DIR/Contents/Resources/"
+          
+          echo "✅ Codex Now bundle created"
+          
+          # Create zip archive
+          cd build/codex
+          zip -r "$ZIP_NAME" "$APP_DIR"
           shasum -a 256 "$ZIP_NAME" > "${ZIP_NAME}.sha256"
           
           echo "📦 Created: $ZIP_NAME"
@@ -83,10 +114,12 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: macos-app
+          name: macos-apps
           path: |
-            build/*.zip
-            build/*.sha256
+            build/claude/*.zip
+            build/claude/*.sha256
+            build/codex/*.zip
+            build/codex/*.sha256
           retention-days: 7
 
   release:
@@ -102,34 +135,44 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: macos-app
+          name: macos-apps
           path: dist
+      
+      - name: List artifacts
+        run: find dist -type f
       
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "🖥 Claude Code Now ${{ github.ref_name }}"
+          name: "🖥 Claude Code Now & Codex Now ${{ github.ref_name }}"
           body: |
-            ## 🖥 Claude Code Now ${{ github.ref_name }}
+            ## 🖥 Claude Code Now & Codex Now ${{ github.ref_name }}
             
-            ### 📥 Installation
+            ### 📥 下载
             
-            1. Download `Claude.Code.Now.${{ github.ref_name }}.macOS.zip`
-            2. Extract and drag `Claude Code Now.app` to your Applications folder
-            3. Start using! 🚀
+            | 应用 | 下载 | 校验 |
+            |------|------|------|
+            | Claude Code Now | `Claude.Code.Now.${{ github.ref_name }}.macOS.zip` | `.sha256` |
+            | Codex Now | `Codex.Now.${{ github.ref_name }}.macOS.zip` | `.sha256` |
             
-            ### ✅ Verification
+            ### 📦 安装
             
-            Verify the download integrity using SHA256:
+            1. 下载对应的 `.zip` 文件
+            2. 解压并拖动 `.app` 到 Applications 文件夹
+            3. 开始使用！🚀
+            
+            ### ✅ 校验完整性
+            
             ```bash
             shasum -a 256 -c Claude.Code.Now.${{ github.ref_name }}.macOS.zip.sha256
+            shasum -a 256 -c Codex.Now.${{ github.ref_name }}.macOS.zip.sha256
             ```
             
             ---
             *Built automatically by GitHub Actions*
           files: |
-            dist/*.zip
-            dist/*.sha256
+            dist/**/*.zip
+            dist/**/*.sha256
           draft: false
           prerelease: false
         env:

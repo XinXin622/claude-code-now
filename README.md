@@ -1,208 +1,215 @@
+
+fork自：https://github.com/orange2ai/claude-code-now
+
+- 精简实现，删除无用文件
+- 新增 codex 支持
+- 终端仅支持：系统自带，Ghostty
+
+---
+
 # 🖥 Claude Code Now
 
-**Launch Claude Code in 3 seconds, save 5 minutes daily** ⚡
+**3秒启动Claude Code，每天省5分钟** ⚡
 
-**English** | [中文](README.zh.md) | [日本語](README.ja.md)
-
-> "Finally, no more typing commands in terminal every time!"
+> "终于不用每次都打开终端输入一堆命令了！" 
 > 
-> ⭐ **Chosen by 5,000+ users** | [GitHub Stars](https://github.com/orange2ai/claude-code-now)
+> ⭐ **5,000+ 用户的选择** | [GitHub Stars](https://github.com/orange2ai/claude-code-now)
 
 ---
 
-## 🎯 What Does It Do?
+## 🎯 它能帮你什么？
 
-**Your current workflow:**
+**现在的工作流程：**
 ```
-Open Terminal → Type commands → Wait → Select folder → Confirm → 😰
-```
-
-**With Claude Code Now:**
-```
-Click icon → Start working instantly → ✨
+打开终端 → 输入命令 → 等待 → 选择文件夹 → 确认 → 😰
 ```
 
-**💡 Side-by-side comparison:**
-| What | Traditional Way | Claude Code Now |
-|------|---------------|-----------------|
-| Time needed | ~35s | ~3s |
-| Steps required | 5-6 steps | 1 step |
+**使用Claude Code Now：**
+```
+点击图标 → 立即开始工作 → ✨
+```
 
-**Launch 10 times daily = Save 5 minutes = 30 hours saved yearly** 🎉
+**💡 效果对比：**
+| 操作步骤 | 传统方式 | Claude Code Now |
+|---------|---------|-----------------|
+| 所需时间 | ~35秒 | ~3秒 |
+| 操作次数 | 5-6步 | 1步 |
+
+**每天启动10次 = 节省5分钟 = 一年省30小时** 🎉
 
 ---
 
-## 🌟 Why It's Special
+## 🌟 为什么特别
 
-### 💡 The Power of Context
+### 💡 上下文的威力
 
-Claude Code has different "superpowers" in different folders:
+Claude Code在不同文件夹有不同的"超能力"：
 
-- 📊 **Research folder** → Data analysis expert
-- 💻 **Project folder** → Code writing assistant  
-- 📝 **Documents folder** → Document processing expert
+- 📊 **研究文件夹** → 数据分析专家
+- 💻 **项目文件夹** → 代码写作助手  
+- 📝 **文档文件夹** → 文档处理专家
 
-**Launch in the right place = Claude Code gets smarter!**
+**在正确的地方启动，Claude Code就更聪明！**
 
-### ⚡ Core Features
+### ⚡ 核心特性
 
-- **🚀 3-Second Launch** - Click and go, no waiting
-- **📁 Smart Folder Launch** - Works where you are
-- **🔒 Zero Configuration** - No setup needed
-- **⚙️ Permission Auto-Skip** - No annoying confirmations
-
----
-
-## ⏱️ Install in 30 Seconds
-
-### 🔥 Step 1: Click to Download
-
-[📥 **Download v1.6.2 Now**](https://github.com/orange2ai/claude-code-now/releases/download/v1.6.2/Claude.Code.Now.v1.6.2.macOS.zip)
-
-**File size**: 1.0MB | **Download time**: ~3 seconds
+- **🚀 3秒启动** - 点一下就能用，无需等待
+- **📁 智能文件夹启动** - 在哪启动就在哪工作
+- **🔒 零配置** - 无需任何设置
+- **⚙️ 自动跳过权限** - 没有烦人的确认弹窗
 
 ---
 
-### 👆 Step 2: Drag to Install
+## ⏱️ 30秒完成安装
 
-1. Double-click `Claude.Code.Now.v1.6.2.macOS.zip` to extract
-2. Drag `Claude Code Now.app` to your `Applications` folder
+### 🔥 第1步：点击下载
+
+[📥 **立即下载 v1.6.2**](https://github.com/orange2ai/claude-code-now/releases/download/v1.6.2/Claude.Code.Now.v1.6.2.macOS.zip)
+
+**文件大小**: 1.0MB | **下载时间**: ~3秒
+
+---
+
+### 👆 第2步：拖拽安装
+
+1. 双击下载的 `Claude.Code.Now.v1.6.2.macOS.zip` 解压
+2. 把 `Claude Code Now.app` 拖到 `应用程序` 文件夹
 
 ```
-📁 Downloads          →        📁 Applications
-Claude Code Now.app   →         (drag here)
+📁 下载文件夹          →        📁 应用程序
+Claude Code Now.app   →         (拖拽到这里)
 ```
 
 ---
 
-### ▶️ Step 3: Start Using
+### ▶️ 第3步：开始使用
 
-**Launch from Dock:**
+**从程序坞启动：**
 ```
-Applications → Claude Code Now.app → Drag to Dock → Click to launch
-```
-
-**Launch from Finder Toolbar (Recommended):**
-```
-Hold Command ⌘ → Drag app to Finder toolbar → Click to launch in any folder
+应用程序 → Claude Code Now.app → 拖到程序坞 → 点击启动
 ```
 
-**🎉 Done! Enjoy 3-second launches!**
+**从Finder工具栏启动（推荐）：**
+```
+按住 Command ⌘ → 拖应用到Finder工具栏 → 在任意文件夹点击启动
+```
+
+**🎉 完成！现在享受3秒启动的快感！**
 
 ---
 
-## 📸 How to Use
+## 📸 使用方法
 
-### 📱 Dock Launch
-Click the Dock icon, automatically launches in `Documents/Claude Code` folder
+### 📱 程序坞启动
+点击程序坞图标，自动在 `文稿/Claude Code` 文件夹启动
 
-### ⚡ Finder Toolbar Launch  
-Click the toolbar icon in any folder, launches directly in that folder
+### ⚡ Finder工具栏启动  
+在任意文件夹点击工具栏图标，直接在当前文件夹启动
 
-### 🚀 Zero Configuration
-No setup needed, works out of the box, auto-skips permission prompts
-
----
-
-## ❓ Frequently Asked Questions
-
-**Q: Is it safe? Will it break my computer?**
-- ✅ Completely safe! It's just a launcher, doesn't modify system files
-- ✅ Open source code, review it yourself [View Source](https://github.com/orange2ai/claude-code-now)
-- ✅ Trusted by 5,000+ users
-
-**Q: What do I need to install first?**
-- Yes, you need [Claude Code official CLI](https://docs.claude.com/en/docs/claude-code) installed first
-- This is the official tool, install once and you're set
-
-**Q: Does it support Windows?**
-- Yes! Check out [Windows Installation Guide](#windows-installation)
-
-**Q: Can I uninstall if I don't like it?**
-- Of course! Just drag the app to trash
-- Leaves no leftover files
-
-**Q: Is it free?**
-- Completely free and open source, use forever
+### 🚀 零配置使用
+无需任何设置，安装即用，自动跳过权限确认
 
 ---
 
-## 🪟 Windows Installation
+## ❓ 常见问题
+
+**Q: 安全吗？会搞坏我的电脑吗？**
+- ✅ 完全安全！只是启动工具，不修改系统文件
+- ✅ 开源代码，可自行审查 [查看源码](https://github.com/orange2ai/claude-code-now)
+- ✅ 5,000+用户信赖使用
+
+**Q: 需要先安装什么吗？**
+- 是的，需要先安装 [Claude Code官方CLI](https://docs.claude.com/en/docs/claude-code)
+- 这是官方工具，安装一次即可
+
+**Q: 支持Windows吗？**
+- 支持！查看 [Windows安装指南](#windows安装)
+
+**Q: 不喜欢能卸载吗？**
+- 当然！直接把应用拖到垃圾桶就删掉了
+- 不会留下任何残留文件
+
+**Q: 免费吗？**
+- 完全免费开源，永久使用
+
+---
+
+## 🪟 Windows安装
 
 ```batch
-# 1. Install Claude Code CLI first
+# 1. 先安装Claude Code CLI
 npm install -g @anthropic-ai/claude-code
 
-# 2. Download Windows installation scripts
-# Visit: https://github.com/orange2ai/claude-code-now/tree/main/windows
+# 2. 下载Windows版安装脚本
+# 访问：https://github.com/orange2ai/claude-code-now/tree/main/windows
 ```
 
 ---
 
-## 🛠️ Advanced Users
+## 🛠️ 高级用户
 
-### Command Line Installation
+### 命令行安装
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/orange2ai/claude-code-now/main/install.sh | bash
 ```
 
-### Custom Working Directory
+### 自定义工作目录
 
-By default launches in `Documents/Claude Code`, to change:
+默认在 `文稿/Claude Code` 启动，如需修改：
 
 ```bash
-# Edit launcher script, modify WORK_DIR variable
+# 编辑启动脚本，修改 WORK_DIR 变量
 open "Claude Code Now.app/Contents/MacOS/ClaudeCodeLauncher"
 ```
 
 ---
 
-## 🏆 Product Philosophy
+## 🏆 产品理念
 
-**Simple** - Focus on one function, do it perfectly  
-**Focused** - Just a launcher, nothing else  
-**Ultimate** - 3-second launch, fastest in industry
-
----
-
-## 👨‍💼 About Author
-
-Made by **Orange**, CEO of [ListenHub.AI](https://listenhub.ai)
-
-> "I believe the best products are those where you don't feel the complexity."
+**简单** - 专注一个功能，做到极致  
+**专注** - 只做启动器，不做其他  
+**极致** - 3秒启动，行业最快
 
 ---
 
-## 🌟 User Reviews
+## 👨‍💼 关于作者
 
-⭐⭐⭐⭐⭐ **"So simple! Why didn't someone make this sooner?"**
+由 **Orange** 制作，[ListenHub.AI](https://listenhub.ai) CEO
 
-⭐⭐⭐⭐⭐ **"The 5 minutes I save daily, I use to grab a coffee"**
-
-⭐⭐⭐⭐⭐ **"Finally no need to memorize commands, super beginner-friendly"**
+> "我相信最好的产品，就是那些让你感觉不到复杂的产品。"
 
 ---
 
-## 🔗 Related Links
+## 🌟 用户评价
 
-- **[💬 Submit Feedback](https://github.com/orange2ai/claude-code-now/issues)** - Having issues? Tell us
-- **[📖 Full Documentation](https://github.com/orange2ai/claude-code-now/wiki)** - Detailed usage guide
-- **[🎧 ListenHub.AI](https://listenhub.ai)** - Author's other projects
+⭐⭐⭐⭐⭐ **"太简单了！为什么没人早点做这个？"**
+
+⭐⭐⭐⭐⭐ **"每天节省的5分钟，我可以用来喝杯咖啡"**
+
+⭐⭐⭐⭐⭐ **"终于不用记命令了，对我这种小白太友好了"**
 
 ---
 
-## ⚡ Get Started Now
+## 🔗 相关链接
 
-[🔥 **Click Here to Download v1.6.2**](https://github.com/orange2ai/claude-code-now/releases/download/v1.6.2/Claude.Code.Now.v1.6.2.macOS.zip)
+- **[💬 提交反馈](https://github.com/orange2ai/claude-code-now/issues)** - 遇到问题？告诉我们
+- **[📖 完整文档](https://github.com/orange2ai/claude-code-now/wiki)** - 详细使用指南
+- **[🎧 ListenHub.AI](https://listenhub.ai)** - 作者的其他项目
 
-**30-second install, 3-second launch, save 5 minutes daily** 🚀
+---
+
+## ⚡ 立即开始
+
+[🔥 **点击这里下载 v1.6.2**](https://github.com/orange2ai/claude-code-now/releases/download/v1.6.2/Claude.Code.Now.v1.6.2.macOS.zip)
+
+**30秒安装，3秒启动，每天省5分钟** 🚀
 
 ---
 
 <div align="center">
 
-**If this tool helped you, please give it a Star⭐**
+**如果这个工具帮到了你，请给个Star⭐**
 
 [![GitHub stars](https://img.shields.io/github/stars/orange2ai/claude-code-now?style=social)](https://github.com/orange2ai/claude-code-now/stargazers)
 
