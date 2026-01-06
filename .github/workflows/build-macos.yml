@@ -1,0 +1,136 @@
+# Build and Release macOS App
+# Automatically creates macOS .app bundle and publishes to GitHub Releases
+#
+# Trigger: Push a tag like 'v1.7.0' to create a release
+#   git tag v1.7.0
+#   git push origin v1.7.0
+
+name: Build macOS App
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags (v1.0.0, v1.6.3, etc.)
+  
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.7.0)'
+        required: true
+        type: string
+
+env:
+  APP_NAME: "Claude Code Now"
+
+jobs:
+  build:
+    name: Build macOS App Bundle
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            # Extract version from tag (remove 'v' prefix)
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Building version: $VERSION"
+      
+      - name: Build App Bundle
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          APP_DIR="${{ env.APP_NAME }}.app"
+          ZIP_NAME="Claude.Code.Now.v${VERSION}.macOS.zip"
+          
+          echo "🔨 Building $APP_DIR..."
+          
+          # Create fresh app bundle structure
+          rm -rf "build"
+          mkdir -p "build/$APP_DIR/Contents/MacOS"
+          mkdir -p "build/$APP_DIR/Contents/Resources"
+          
+          # Copy Info.plist and update version
+          cp "$APP_DIR/Contents/Info.plist" "build/$APP_DIR/Contents/"
+          sed -i '' "s/<string>1\.[0-9]\.[0-9]<\/string>/<string>${VERSION}<\/string>/g" "build/$APP_DIR/Contents/Info.plist"
+          
+          # Copy executable script
+          cp "$APP_DIR/Contents/MacOS/ClaudeCodeLauncher" "build/$APP_DIR/Contents/MacOS/"
+          chmod +x "build/$APP_DIR/Contents/MacOS/ClaudeCodeLauncher"
+          
+          # Copy icon resources
+          cp "$APP_DIR/Contents/Resources/"*.icns "build/$APP_DIR/Contents/Resources/"
+          
+          echo "✅ App bundle created successfully"
+          
+          # Create zip archive
+          cd build
+          zip -r "$ZIP_NAME" "$APP_DIR"
+          
+          # Generate SHA256 checksum
+          shasum -a 256 "$ZIP_NAME" > "${ZIP_NAME}.sha256"
+          
+          echo "📦 Created: $ZIP_NAME"
+          cat "${ZIP_NAME}.sha256"
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          path: |
+            build/*.zip
+            build/*.sha256
+          retention-days: 7
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-app
+          path: dist
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "🖥 Claude Code Now ${{ github.ref_name }}"
+          body: |
+            ## 🖥 Claude Code Now ${{ github.ref_name }}
+            
+            ### 📥 Installation
+            
+            1. Download `Claude.Code.Now.${{ github.ref_name }}.macOS.zip`
+            2. Extract and drag `Claude Code Now.app` to your Applications folder
+            3. Start using! 🚀
+            
+            ### ✅ Verification
+            
+            Verify the download integrity using SHA256:
+            ```bash
+            shasum -a 256 -c Claude.Code.Now.${{ github.ref_name }}.macOS.zip.sha256
+            ```
+            
+            ---
+            *Built automatically by GitHub Actions*
+          files: |
+            dist/*.zip
+            dist/*.sha256
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
