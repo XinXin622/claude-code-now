@@ -1,11 +1,21 @@
+> Fork 自 [orange2ai/claude-code-now](https://github.com/orange2ai/claude-code-now)
 
-fork自：https://github.com/orange2ai/claude-code-now
+## ✨ 本 Fork 的改进
 
-- 精简实现，删除无用文件
-- 新增 codex 支持
-- 终端仅支持：系统自带，Ghostty
+| 特性 | 说明 |
+|------|------|
+| 🆕 **新增 Codex 支持** | 同时支持 OpenAI Codex CLI（`codex --yolo`） |
+| 🧹 **精简实现** | 删除冗余代码和无用文件 |
+| 🖥️ **终端支持** | 仅保留系统 Terminal 和 Ghostty |
+
+### ⚡ 快速安装
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/XinXin622/claude-code-now/main/install.sh | bash
+```
 
 ---
+
 
 # 🖥 Claude Code Now
 
