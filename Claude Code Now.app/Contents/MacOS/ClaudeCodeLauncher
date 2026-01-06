@@ -117,6 +117,7 @@ fi
 case "$CHOICE" in
 
     "Ghostty")
+        osascript -e 'display notification "Starting Claude Code..." with title "Claude Code Now"' >/dev/null 2>&1 || true
         # Ghostty: 创建临时脚本执行
         TEMP_SCRIPT=$(mktemp /tmp/claude_launcher.XXXXXX)
         cat > "$TEMP_SCRIPT" << SCRIPT
@@ -140,11 +141,13 @@ SCRIPT
         
         # 使用 Ghostty 执行脚本，设置标题和工作目录
         /Applications/Ghostty.app/Contents/MacOS/ghostty --title="$DIR_NAME" --working-directory="$TARGET_DIR" -e "$TEMP_SCRIPT" &
+        osascript -e 'display notification "Claude Code started successfully." with title "Claude Code Now"' >/dev/null 2>&1 || true
         
         # 延迟删除临时脚本
         (sleep 5 && rm -f "$TEMP_SCRIPT") &
         ;;
     "Terminal"|*)
+        osascript -e 'display notification "Starting Claude Code..." with title "Claude Code Now"' >/dev/null 2>&1 || true
         # 系统终端 - 直接在窗口执行命令
         DIR_NAME=$(basename "$TARGET_DIR")
         osascript <<EOF
@@ -159,5 +162,6 @@ tell application "Terminal"
     set frontmost to true
 end tell
 EOF
+        osascript -e 'display notification "Claude Code started successfully." with title "Claude Code Now"' >/dev/null 2>&1 || true
         ;;
 esac
