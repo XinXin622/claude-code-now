@@ -175,7 +175,8 @@ jobs:
             echo
             echo "1. 下载对应的 \`.zip\` 文件"
             echo "2. 解压并拖动 \`.app\` 到 Applications 文件夹"
-            echo "3. 开始使用！🚀"
+            echo "3. 按住 \`⌘ Command\` 拖动 app 到 Finder 工具栏，即可在任意文件夹快速启动"
+            echo "4. 开始使用！🚀"
             echo
             echo "---"
             echo "*Built automatically by GitHub Actions*"
